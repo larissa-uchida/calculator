@@ -12,6 +12,10 @@ height_screen = root.winfo_screenheight()
 pos_x = int(width_screen/2 - (width_window/2))
 pos_y = int(height_screen/2 - (height_window/2))
 root.geometry(f'{width_window}x{height_window}+{pos_x}+{pos_y}')
+
+viewer = Text(root, height=2, width=16, font='Arial 30')
+viewer.grid(columnspan=4, pady=8, padx=1)
+viewer.config(bg='#ffe6f9')
 class Buttons:
     def __init__(self, color, symbol, column, row):
         self.color = color
@@ -20,7 +24,7 @@ class Buttons:
         self.row = row
 
         self.botao = Button(text=symbol, bg=color, command=None, width=7, height=3, font='Arial 13 bold')
-        self.botao.grid(column=column, row=row)
+        self.botao.grid(column=column, row=row, pady=3)
 
     def change_size(self, width='', height=''):
         self.botao.configure(width=width, height=height)
@@ -38,7 +42,7 @@ percent_button = Buttons('#e376ac', '%', 1, 3)
 
 zero_button = Buttons('#e376ac', '0', 0, 7)
 zero_button.botao.grid(columnspan=2)
-zero_button.change_size(15, 3)
+zero_button.change_size(16, 3)
 one_button = Buttons('#e376ac', '1', 0, 6)
 two_button = Buttons('#e376ac', '2', 1, 6)
 three_button = Buttons('#e376ac', '3', 2, 6)

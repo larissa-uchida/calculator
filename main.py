@@ -3,54 +3,96 @@ from tkinter import *
 root = Tk()
 root.title('Calculator')
 root.iconbitmap('icon.ico')
-root.config(bg='#d6c7cf')
+root.config(bg='#ba2563')
+root.resizable(False, False)
 
-width_window = 360
-height_window = 500
+width_window = 363
+height_window = 525
 width_screen = root.winfo_screenwidth()
 height_screen = root.winfo_screenheight()
 pos_x = int(width_screen/2 - (width_window/2))
 pos_y = int(height_screen/2 - (height_window/2))
 root.geometry(f'{width_window}x{height_window}+{pos_x}+{pos_y}')
 
-viewer = Text(root, height=2, width=16, font='Arial 30')
-viewer.grid(columnspan=4, pady=8, padx=1)
-viewer.config(bg='#ffe6f9')
+equation = ''
+
+viewer = Text(root, height=1, width=13, font='Arial 36', wrap='none', spacing1=20, spacing3=20)
+viewer.grid(columnspan=4, pady=5, padx=1)
+viewer.config(bg='#a3ada1')
 class Buttons:
-    def __init__(self, color, symbol, column, row):
+    def __init__(self, color, symbol, column, row, command, fg):
         self.color = color
         self.symbol = symbol
         self.column = column
         self.row = row
+        self.command = command
+        self.fg = fg
 
-        self.botao = Button(text=symbol, bg=color, command=None, width=7, height=3, font='Arial 13 bold')
-        self.botao.grid(column=column, row=row, pady=3)
+        self.botao = Button(text=symbol, bg=color, command=command, width=5, height=2, font='Arial 18 bold')
+        self.botao.grid(column=column, row=row, pady=1, padx=2)
+        self.botao.config(fg=fg)
 
     def change_size(self, width='', height=''):
         self.botao.configure(width=width, height=height)
 
-clear_button = Buttons('#e376ac', 'C', 0, 3)
-plus_button = Buttons('#e376ac', '+', 3, 5)
-minus_button = Buttons('#e376ac', '-', 3, 4)
-multiply_button = Buttons('#e376ac', 'x', 2, 3)
-divide_button = Buttons('#e376ac', '/', 3, 3)
-equal_button = Buttons('#e376ac', '=', 3, 6)
-equal_button.botao.grid(rowspan=2)
-equal_button.change_size(7, 7)
-comma_button = Buttons('#e376ac', ',', 2, 7)
-percent_button = Buttons('#e376ac', '%', 1, 3)
+    def change_padx(self, padx=''):
+        self.botao.grid(padx=padx)
 
-zero_button = Buttons('#e376ac', '0', 0, 7)
+equation = ''
+
+def clear():
+    global equation
+    equation = ''
+    viewer.delete(1.0, END)
+
+def click_operator(symbol):
+    global equation
+
+    equation += symbol
+    viewer.insert(END, symbol)
+
+def calculates():
+    global equation
+
+    result = str(eval(equation))
+    viewer.delete(1.0, END)
+    viewer.insert(END, result)
+
+def click_number(symbol):
+    global equation
+
+    equation += symbol
+    viewer.insert(END, symbol)
+
+
+clear_button = Buttons('#fcd4e5', 'C', 0, 3, command=lambda: clear(), fg='black')
+clear_button.botao.grid(columnspan=2)
+clear_button.change_size(11, 2)
+clear_button.change_padx(4)
+plus_button = Buttons('#fcd4e5', '+', 3, 5, command=lambda: click_operator('+'), fg='black')
+minus_button = Buttons('#fcd4e5', '-', 3, 4, command=lambda: click_operator('-'), fg='black')
+multiply_button = Buttons('#fcd4e5', 'x', 2, 3, command=lambda: click_operator('*'), fg='black')
+divide_button = Buttons('#fcd4e5', '/', 3, 3, command=lambda: click_operator('/'), fg='black')
+equal_button = Buttons('#fcd4e5', '=', 3, 6, command=lambda: calculates(), fg='black')
+equal_button.botao.grid(rowspan=2)
+equal_button.change_size(5, 5)
+comma_button = Buttons('#f05696', ',', 2, 7, command=lambda: click_operator(','), fg='white')
+
+zero_button = Buttons('#f05696', '0', 0, 7, command=lambda: click_number('0'), fg='white')
 zero_button.botao.grid(columnspan=2)
-zero_button.change_size(16, 3)
-one_button = Buttons('#e376ac', '1', 0, 6)
-two_button = Buttons('#e376ac', '2', 1, 6)
-three_button = Buttons('#e376ac', '3', 2, 6)
-four_button = Buttons('#e376ac', '4', 0, 5)
-five_button = Buttons('#e376ac', '5', 1, 5)
-six_button = Buttons('#e376ac', '6', 2, 5)
-seven_button = Buttons('#e376ac', '7', 0, 4)
-eight_button = Buttons('#e376ac', '8', 1, 4)
-nine_button = Buttons('#e376ac', '9', 2, 4)
- 
+zero_button.change_size(11, 2)
+zero_button.change_padx(4)
+one_button = Buttons('#f05696', '1', 0, 6, command=lambda: click_number('1'), fg='white')
+one_button.change_padx(4)
+two_button = Buttons('#f05696', '2', 1, 6, command=lambda: click_number('2'), fg='white')
+three_button = Buttons('#f05696', '3', 2, 6, command=lambda: click_number('3'), fg='white')
+four_button = Buttons('#f05696', '4', 0, 5, command=lambda: click_number('4'), fg='white')
+four_button.change_padx(4)
+five_button = Buttons('#f05696', '5', 1, 5, command=lambda: click_number('5'), fg='white')
+six_button = Buttons('#f05696', '6', 2, 5, command=lambda: click_number('6'), fg='white')
+seven_button = Buttons('#f05696', '7', 0, 4, command=lambda: click_number('7'), fg='white')
+seven_button.change_padx(4)
+eight_button = Buttons('#f05696', '8', 1, 4, command=lambda: click_number('8'), fg='white')
+nine_button = Buttons('#f05696', '9', 2, 4, command=lambda: click_number('9'), fg='white')
+
 root.mainloop()

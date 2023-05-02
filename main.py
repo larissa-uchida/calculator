@@ -1,5 +1,6 @@
 from tkinter import *
 
+# Window settings
 root = Tk()
 root.title('Calculator')
 root.iconbitmap('icon.ico')
@@ -14,11 +15,12 @@ pos_x = int(width_screen/2 - (width_window/2))
 pos_y = int(height_screen/2 - (height_window/2))
 root.geometry(f'{width_window}x{height_window}+{pos_x}+{pos_y}')
 
-equation = ''
-
+# Viewer settings
 viewer = Text(root, height=1, width=13, font='Arial 36', wrap='none', spacing1=20, spacing3=20)
 viewer.grid(columnspan=4, pady=5, padx=1)
 viewer.config(bg='#a3ada1')
+
+# Class to create buttons
 class Buttons:
     def __init__(self, color, symbol, column, row, command, fg):
         self.color = color
@@ -40,17 +42,20 @@ class Buttons:
 
 equation = ''
 
+# Function to clear the equation
 def clear():
     global equation
     equation = ''
     viewer.delete(1.0, END)
 
+# Function that adds the mathematical operators in the equation and shows is the viewer
 def click_operator(symbol):
     global equation
 
     equation += symbol
     viewer.insert(END, symbol)
 
+# Function that calculates the equation
 def calculates():
     global equation
 
@@ -58,12 +63,14 @@ def calculates():
     viewer.delete(1.0, END)
     viewer.insert(END, result)
 
+# Function that adds the numbers in the equation and shows in the viewer
 def click_number(symbol):
     global equation
 
     equation += symbol
     viewer.insert(END, symbol)
 
+# Operator buttons
 clear_button = Buttons('#fcd4e5', 'C', 0, 3, command=lambda: clear(), fg='black')
 clear_button.botao.grid(columnspan=2)
 clear_button.change_size(11, 2)
@@ -77,6 +84,7 @@ equal_button.botao.grid(rowspan=2)
 equal_button.change_size(5, 5)
 comma_button = Buttons('#f05696', ',', 2, 7, command=lambda: click_operator(','), fg='white')
 
+# Number buttons
 zero_button = Buttons('#f05696', '0', 0, 7, command=lambda: click_number('0'), fg='white')
 zero_button.botao.grid(columnspan=2)
 zero_button.change_size(11, 2)

@@ -64,7 +64,6 @@ def click_number(symbol):
     equation += symbol
     viewer.insert(END, symbol)
 
-
 clear_button = Buttons('#fcd4e5', 'C', 0, 3, command=lambda: clear(), fg='black')
 clear_button.botao.grid(columnspan=2)
 clear_button.change_size(11, 2)

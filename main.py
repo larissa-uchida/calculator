@@ -82,7 +82,7 @@ divide_button = Buttons('#fcd4e5', '/', 3, 3, command=lambda: click_operator('/'
 equal_button = Buttons('#fcd4e5', '=', 3, 6, command=lambda: calculates(), fg='black')
 equal_button.botao.grid(rowspan=2)
 equal_button.change_size(5, 5)
-comma_button = Buttons('#f05696', ',', 2, 7, command=lambda: click_operator(','), fg='white')
+comma_button = Buttons('#f05696', ',', 2, 7, command=lambda: click_operator('.'), fg='white')
 
 # Number buttons
 zero_button = Buttons('#f05696', '0', 0, 7, command=lambda: click_number('0'), fg='white')

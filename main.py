@@ -70,11 +70,15 @@ def click_number(symbol):
     equation += symbol
     viewer.insert(END, symbol)
 
+def cancel_entry():
+    global equation
+
+    viewer.delete('end-2c', 'end-1c')
 # Operator buttons
 clear_button = Buttons('#fcd4e5', 'C', 0, 3, command=lambda: clear(), fg='black')
-clear_button.botao.grid(columnspan=2)
-clear_button.change_size(11, 2)
+clear_button.change_size(5, 2)
 clear_button.change_padx(4)
+cancel_entry_button = Buttons('#fcd4e5', 'CE', 1, 3, command=lambda: cancel_entry(), fg='black')
 plus_button = Buttons('#fcd4e5', '+', 3, 5, command=lambda: click_operator('+'), fg='black')
 minus_button = Buttons('#fcd4e5', '-', 3, 4, command=lambda: click_operator('-'), fg='black')
 multiply_button = Buttons('#fcd4e5', 'x', 2, 3, command=lambda: click_operator('*'), fg='black')

@@ -71,12 +71,21 @@ def click_number(symbol):
     global equation
 
     equation += symbol
+    equation = str(equation)
     viewer.insert(END, symbol)
+
+    max_char = 12
+    if len(equation) > max_char:
+        viewer.delete('end-2c', 'end-1c')
+        equation = equation[:-1]
+
 
 def cancel_entry():
     global equation
 
+    equation = equation[:-1]
     viewer.delete('end-2c', 'end-1c')
+    
 # Operator buttons
 clear_button = Buttons('#fcd4e5', 'C', 0, 3, command=lambda: clear(), fg='black')
 clear_button.change_size(5, 2)

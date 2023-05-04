@@ -52,6 +52,9 @@ def clear():
 def click_operator(symbol):
     global equation
 
+    if equation[-1] in "-, +, *, /, .":
+        return
+
     equation += symbol
     viewer.insert(END, symbol)
 
